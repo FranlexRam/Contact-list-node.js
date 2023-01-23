@@ -1,0 +1,152 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="todos.css">
+  <title>Document</title>
+</head>
+<body>
+  <p class="notification"></p>
+  <h1 id="title">Todos</h1>
+  <div id="container">
+    <form id="form-todos">
+      <input type="text" placeholder="Añade una tarea" id="form-input">
+      <button id="form-btn">Crear tarea</button>
+    </form>
+    <ul id="todos-list">
+       <li class="todo-item">
+        <button class="delete-btn">&#10006;</button>
+        Holaas
+        <button class="check-btn">&#10003;</button>
+      </li> 
+   </ul>
+    <button id="cerrar-btn">Cerrar sesión</button>
+  </div>
+  <script src="todos.js"></script>
+</body>
+</html>  -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="./proyecto.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>PROYECTO: Lista de contactos.</title>
+</head>
+<button id="cerrar-btn">Cerrar sesión</button>
+<body style="color:white; background-color:#1d2630">
+
+    <div class="container" mt-5>
+        <div class="text-center">
+            <h1 class="display-5 mb-5"><b>CRUD: Lista de contactos.</b></h1>
+        </div>
+
+        <div class="main row justify-content-center">
+            <form action="" id="formulario" class="formulario row justify-content-center mb-4" autocomplete="off">
+
+                <!-- Grupo: nombre -->
+                <div class="formulario__grupo col-10 col-md-8 mb-3" id="grupo__nombre">
+
+                    <label for="nombre" class="formulario__label">Nombre</label>
+
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="ej. Luis">
+                        <i class="formulario__validacion-estado fa-sharp fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <p class="formulario__input-error">El nombre solo debe contener letras y espacio (no debe contener
+                        numeros ni caracteres especiales).</p>
+
+                </div>
+
+                <!-- Grupo: apellido -->
+                <div class="formulario__grupo col-10 col-md-8 mb-3" id="grupo__apellido">
+
+                    <label for="apellido" class="formulario__label">Apellido</label>
+
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="apellido" id="apellido"
+                            placeholder="ej. Perez">
+                        <i class="formulario__validacion-estado fa-sharp fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <p class="formulario__input-error">El apellido solo debe contener letras y espacio (no debe contener
+                        numeros ni caracteres especiales).</p>
+
+                </div>
+
+                <!-- Grupo: telefono-->
+                <div class="formulario__grupo col-10 col-md-8 mb-3" id="grupo__telefono">
+
+                    <label for="telefono" class="formulario__label">Telefono</label>
+
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="telefono" id="telefono"
+                            placeholder="ej. 04161112233">
+                        <i class="formulario__validacion-estado fa-sharp fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <p class="formulario__input-error">El telefono solo debe contener numeros y debe tener maximo 11
+                        digitos.</p>
+
+                </div>
+
+
+
+                
+                
+                
+                <!-- boton agregar -->
+                <div class="col-10 col-md-8" id="grupo__btn">
+                    <input  class="btn btn-success add-btn" type="submit" name="agregar" value="agregar" id="form-input">
+                </div>
+            </form>
+
+
+            <div class="col-12 col-md-10 mt-5">
+                <table class="table table-striped table-dark">
+                    <!-- Contador -->
+                        <span><i class="fa-solid fa-address-book"></i> </span>
+                        <span class="cantidad" id="cont">  </span>
+                        <span> Contactos agregados.</span>
+
+
+
+                    <thead>
+                        <tr>
+                            <th>Nombre.</th>
+                            <th>Apellido.</th>
+                            <th>Telefono.</th>
+                            <th>Acciones.</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="contact-list">
+                        <!-- Aqui se agregan los td de la info de contacto -->
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+<script src="./proyecto.js"></script>
+<script src="https://kit.fontawesome.com/88e9452887.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
