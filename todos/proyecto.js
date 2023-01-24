@@ -28,13 +28,29 @@ const campos = {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ nombre: nombre.value, apellido: apellido.value, telefono: telefono.value, user: user.username, checked: false }),
+            body: JSON.stringify({ nombre: nombre.value, apellido: apellido.value, telefono: telefono.value, user: user.username}),
         });
 
         const response = await responseJSON.json();
         console.log(response.id);
+        console.log(response);
         //Crear la lista de tareas en el HTML
-
+        const row = document.createElement('li');
+                row.innerHTML = `
+                <li id=${response.id}>
+                    <td>${response.nombre}</td>
+                    <td>${response.apellido}</td>
+                    <td>${response.telefono}</td>
+                    <td>
+                        <a href="#" class="btn btn-warning bt-sm edit">Editar</a>
+                        <a href="#" class="btn btn-danger bt-sm delete">Borrar</a>
+                    </td>
+                </li>      
+                `;
+                tbody.appendChild(row);
+                selectedRow = null;
+                showAlert('Nuevo contacto agregado.', "success");
+                localStorage.setItem('lista', tbody.innerHTML);
         // const listItem = document.createElement('li');
         // listItem.innerHTML = `
         // <li class="todo-item" id="${response.id}">
@@ -50,22 +66,23 @@ const campos = {
 
 tbody.addEventListener('click', async e => {
     if (e.target.classList.contains('delete')) {
-        //const id = e.target.parentElement.id;
-        console.log(e.target.parentElement.parentElement);
+        const id = e.target.parentElement.id;
         
-        await fetch(`http://localhost:3000/todos/1`, {method: 'DELETE'});
-        e.target.parentElement.parentElement.remove();
-    } //else if (e.target.classList.contains('check-btn')) {
+        console.log(e.target.parentElement.id);
+        
+        await fetch(`http://localhost:3000/todos/${id}`, {method: 'DELETE'});
+        e.target.parentElement.remove();
+    // } else if (e.target.classList.contains('check-btn')) {
 //         const id = e.target.parentElement.id;
-//         await fetch(`http://localhost:3000/todos/${id}`, {
-//         method: 'PATCH',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({checked: e.target.parentElement.children[1].classList.contains('check-todo') ? false : true}),
-//     });
+    //     await fetch(`http://localhost:3000/todos/${id}`, {
+    //     method: 'PATCH',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+        // },
+    //     body: JSON.stringify({checked: e.target.parentElement.children[1].classList.contains('check-todo') ? false : true}),
+    // });
 //     e.target.parentElement.children[1].classList.toggle('check-todo');
-//     }
+    }
 });
 
 //Cerrar sesion
@@ -74,24 +91,35 @@ closeBtn.addEventListener('click', async e => {
     window.location.href = '../home/index.html';
 });
 
-// const getTodos = async () => {
-//     const response = await fetch('http://localhost:3000/todos', {method: 'GET'});
-//     const todos = await response.json();
-//     const userTodos = todos.filter(todo => todo.user === user.username);
-//     userTodos.forEach(todo => {
-//     const listItem = document.createElement('li');
-//     listItem.innerHTML = `
-//     <li class="todo-item" id="${todo.id}">
-//         <button class="delete-btn">&#10006;</button>
-//             <p ${todo.checked ? 'class="check-todo"' : null}>${todo.text}</p>
-//         <button class="check-btn">&#10003;</button>
-//     </li>
-//     `;
-//     tbody.append(listItem);
-//     });
-// }
+const getTodos = async () => {
+    const response = await fetch('http://localhost:3000/todos', {method: 'GET'});
+    const todos = await response.json();
+    const userTodos = todos.filter(todo => todo.user === user.username);
+    userTodos.forEach(todo => {
+    const row = document.createElement('li');
+    row.innerHTML = `
+    <li id=${todo.id}>
+        <td>${todo.nombre}</td>
+        <td>${todo.apellido}</td>
+        <td>${todo.telefono}</td>
+        <td>
+            <a href="#" class="btn btn-warning bt-sm edit">Editar</a>
+            <a href="#" class="btn btn-danger bt-sm delete">Borrar</a>
+        </td>
+    </li>      
+    `;
+    // row.innerHTML = `
+    // <li class="todo-item" id="${todo.id}">
+    //     <button class="delete-btn">&#10006;</button>
+    //         <p ${todo.checked ? 'class="check-todo"' : null}>${todo.text}</p>
+    //     <button class="check-btn">&#10003;</button>
+    // </li>
+    // `;
+    tbody.append(row);
+    });
+}
 
-// getTodos();
+getTodos();
 
 //Expresiones regulares
 const expresiones = {
@@ -217,29 +245,28 @@ document.querySelector('#formulario').addEventListener('submit', (e) => {
             
                 
                 
-                const list = document.querySelector('#contact-list');
-                const row = document.createElement('tr');
+                // const list = document.querySelector('#contact-list');
+                // const row = document.createElement('tr');
                 
+                // row.innerHTML = `
                 
-                row.innerHTML = `
-                
-                <td>${nombre}</td>
-                <td>${apellido}</td>
-                <td>${telefono}</td>
-                <td>
-                <a href="#" class="btn btn-warning bt-sm edit">Editar</a>
-                <a href="#" class="btn btn-danger bt-sm delete">Borrar</a>
-                </td>
-                         
-                `;
-                list.appendChild(row);
-                selectedRow = null;
-                showAlert('Nuevo contacto agregado.', "success");
-                localStorage.setItem('lista', tbody.innerHTML);
+                // <td>${nombre}</td>
+                // <td>${apellido}</td>
+                // <td>${telefono}</td>
+                // <td>
+                // <a href="#" class="btn btn-warning bt-sm edit">Editar</a>
+                // <a href="#" class="btn btn-danger bt-sm delete">Borrar</a>
+                // </td>
+                        
+                // `;
+                // list.appendChild(row);
+                // selectedRow = null;
+                // showAlert('Nuevo contacto agregado.', "success");
+                // localStorage.setItem('lista', tbody.innerHTML);
                 
             
-                // numero++;
-                contador.innerHTML = tbody.children.length; 
+                // // numero++;
+                // contador.innerHTML = tbody.children.length; 
                 // localStorage.setItem('contador', contador.innerHTML);//contador suma
 
 
@@ -249,7 +276,7 @@ document.querySelector('#formulario').addEventListener('submit', (e) => {
             selectedRow.children[2].textContent = telefono;
             selectedRow = null;
             showAlert('Informacion de contacto actualizada.', 'info');
-            localStorage.setItem('lista', tbody.innerHTML);
+            //localStorage.setItem('lista', tbody.innerHTML);
         }
 
         clearFields();
@@ -295,7 +322,7 @@ document.querySelector('#contact-list').addEventListener('click', (e) => {
     if (target.classList.contains('delete')) {
         target.parentElement.parentElement.remove();
         showAlert('Contacto borrado.', 'danger');
-        localStorage.setItem('lista', tbody.innerHTML);
+        //localStorage.setItem('lista', tbody.innerHTML);
         contador.innerHTML = tbody.children.length; 
 
     }
@@ -304,10 +331,10 @@ document.querySelector('#contact-list').addEventListener('click', (e) => {
 
 //Almacenar datos:
 
-(() => {
-    tbody.innerHTML = localStorage.getItem('lista');
-    contador.innerHTML = tbody.children.length;
-})()
+// (() => {
+//     tbody.innerHTML = localStorage.getItem('lista');
+//     contador.innerHTML = tbody.children.length;
+// })()
 
 
 // IIFE immediatelly invoked function expression

@@ -7,23 +7,32 @@
     {
       "username": "Lisbeth08",
       "id": 2
+    },
+    {
+      "username": "Franlex",
+      "id": 3
     }
   ],
   "todos": [
     {
-      "nombre": "oiuoiuoiu",
-      "apellido": "poipoipo",
+      "nombre": "Liberth",
+      "apellido": "asdasd",
       "telefono": "88888888888",
+      "user": "Lisbeth08",
+      "id": 1
+    },
+    {
+      "nombre": "rasdasd",
+      "apellido": "holahola",
+      "telefono": "00000000000",
       "user": "Eduardo23",
-      "checked": false,
       "id": 2
     },
     {
-      "nombre": "dsfsdfsd",
-      "apellido": "zdsdfdsf",
-      "telefono": "00000000000",
+      "nombre": "Lexfer",
+      "apellido": "Ramirez",
+      "telefono": "04165187523",
       "user": "Eduardo23",
-      "checked": false,
       "id": 3
     }
   ]
