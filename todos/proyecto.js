@@ -2,10 +2,10 @@ const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
 const tbody = document.getElementById('contact-list');
 const contador = document.getElementById('cont');
+let numero= 0;
 const formInput = document.querySelector('#form-input');
 const user = JSON.parse(localStorage.getItem('user'));
 const closeBtn = document.querySelector('#cerrar-btn');
-let numero= 0;
 const nombre = document.querySelector('#nombre');
 const apellido = document.querySelector('#apellido');
 const telefono = document.querySelector('#telefono');
@@ -14,38 +14,48 @@ if (!user) {
     window.location.href = '../home/index.html';
 }
 
-formulario.addEventListener('submit', async e => {
-    e.preventDefault();
-    const responseJSON = await fetch('http://localhost:3000/todos', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({nombre: nombre.value, apellido: apellido.value, telefono: telefono.value, user: user.username, checked: false}),
+const campos = {
+    nombre: false,
+    apellido: false,
+    telefono: false  //NO se coloca coma (,) al ultimo elemento del objecto.
+}
+
+
+    formulario.addEventListener('submit', async e => {
+        e.preventDefault();
+        const responseJSON = await fetch('http://localhost:3000/todos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre: nombre.value, apellido: apellido.value, telefono: telefono.value, user: user.username, checked: false }),
+        });
+
+        const response = await responseJSON.json();
+        console.log(response.id);
+        //Crear la lista de tareas en el HTML
+
+        // const listItem = document.createElement('li');
+        // listItem.innerHTML = `
+        // <li class="todo-item" id="${response.id}">
+        //     <button class="delete-btn">&#10006;</button>
+        //         <p>${response.text}</p>
+        //     <button class="check-btn">&#10003;</button>
+        // </li>
+        // `;
+        // tbody.append(listItem);
+        // formInput.value = '';
     });
 
-    const response = await responseJSON.json();
-    console.log(response);
 
-    //Crear la lista de tareas en el HTML
-    // const listItem = document.createElement('li');
-    // listItem.innerHTML = `
-    // <li class="todo-item" id="${response.id}">
-    //     <button class="delete-btn">&#10006;</button>
-    //         <p>${response.text}</p>
-    //     <button class="check-btn">&#10003;</button>
-    // </li>
-    // `;
-    // todosList.append(listItem);
-    // formInput.value = '';
-});
-
-// todosList.addEventListener('click', async e => {
-//     if (e.target.classList.contains('delete')) {
-//         const id = e.target.parentElement.id;
-//         await fetch(`http://localhost:3000/todos/${id}`, {method: 'DELETE'});
-//         e.target.parentElement.remove();
-//     } else if (e.target.classList.contains('check-btn')) {
+tbody.addEventListener('click', async e => {
+    if (e.target.classList.contains('delete')) {
+        //const id = e.target.parentElement.id;
+        console.log(e.target.parentElement.parentElement);
+        
+        await fetch(`http://localhost:3000/todos/1`, {method: 'DELETE'});
+        e.target.parentElement.parentElement.remove();
+    } //else if (e.target.classList.contains('check-btn')) {
 //         const id = e.target.parentElement.id;
 //         await fetch(`http://localhost:3000/todos/${id}`, {
 //         method: 'PATCH',
@@ -56,7 +66,7 @@ formulario.addEventListener('submit', async e => {
 //     });
 //     e.target.parentElement.children[1].classList.toggle('check-todo');
 //     }
-// });
+});
 
 //Cerrar sesion
 closeBtn.addEventListener('click', async e => {
@@ -77,7 +87,7 @@ closeBtn.addEventListener('click', async e => {
 //         <button class="check-btn">&#10003;</button>
 //     </li>
 //     `;
-//     todosList.append(listItem);
+//     tbody.append(listItem);
 //     });
 // }
 
@@ -91,11 +101,11 @@ const expresiones = {
 }
 
 
-const campos = {
-    nombre: false,
-    apellido: false,
-    telefono: false  //NO se coloca coma (,) al ultimo elemento del objecto.
-}
+// const campos = {
+//     nombre: false,
+//     apellido: false,
+//     telefono: false  //NO se coloca coma (,) al ultimo elemento del objecto.
+// }
 
 
 const validarFormulario = (e) => {
@@ -204,28 +214,33 @@ document.querySelector('#formulario').addEventListener('submit', (e) => {
             });
 
 
-            const list = document.querySelector('#contact-list');
-            const row = document.createElement('tr');
-
-
-            row.innerHTML = `
-            <td>${nombre}</td>
-            <td>${apellido}</td>
-            <td>${telefono}</td>
-            <td>
-            <a href="#" class="btn btn-warning bt-sm edit">Editar</a>
-            <a href="#" class="btn btn-danger bt-sm delete">Borrar</a>
-            </td>            
-            `;
-            list.appendChild(row);
-            selectedRow = null;
-            showAlert('Nuevo contacto agregado.', "success");
-            localStorage.setItem('lista', tbody.innerHTML);
-
-            console.log(tbody.children.length)
-            // numero++;
-            contador.innerHTML = tbody.children.length; 
-            // localStorage.setItem('contador', contador.innerHTML);//contador suma
+            
+                
+                
+                const list = document.querySelector('#contact-list');
+                const row = document.createElement('tr');
+                
+                
+                row.innerHTML = `
+                
+                <td>${nombre}</td>
+                <td>${apellido}</td>
+                <td>${telefono}</td>
+                <td>
+                <a href="#" class="btn btn-warning bt-sm edit">Editar</a>
+                <a href="#" class="btn btn-danger bt-sm delete">Borrar</a>
+                </td>
+                         
+                `;
+                list.appendChild(row);
+                selectedRow = null;
+                showAlert('Nuevo contacto agregado.', "success");
+                localStorage.setItem('lista', tbody.innerHTML);
+                
+            
+                // numero++;
+                contador.innerHTML = tbody.children.length; 
+                // localStorage.setItem('contador', contador.innerHTML);//contador suma
 
 
         } else {
