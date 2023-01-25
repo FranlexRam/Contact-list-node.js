@@ -37,7 +37,7 @@ const campos = {
         //Crear la lista de tareas en el HTML
         const row = document.createElement('li');
                 row.innerHTML = `
-                <li id=${response.id}>
+                <li class="todo-item" id=${response.id}>
                     <td>${response.nombre}</td>
                     <td>${response.apellido}</td>
                     <td>${response.telefono}</td>
@@ -51,16 +51,6 @@ const campos = {
                 selectedRow = null;
                 showAlert('Nuevo contacto agregado.', "success");
                 localStorage.setItem('lista', tbody.innerHTML);
-        // const listItem = document.createElement('li');
-        // listItem.innerHTML = `
-        // <li class="todo-item" id="${response.id}">
-        //     <button class="delete-btn">&#10006;</button>
-        //         <p>${response.text}</p>
-        //     <button class="check-btn">&#10003;</button>
-        // </li>
-        // `;
-        // tbody.append(listItem);
-        // formInput.value = '';
     });
 
 
@@ -82,7 +72,29 @@ tbody.addEventListener('click', async e => {
     //     body: JSON.stringify({checked: e.target.parentElement.children[1].classList.contains('check-todo') ? false : true}),
     // });
 //     e.target.parentElement.children[1].classList.toggle('check-todo');
-    }
+     } //else if (e.target.classList.contains('edit')) {
+    //     selectedRow = target.parentElement.parentElement;
+    //     console.log(target.parentElement.parentElement);
+    //     const id = e.target.parentElement.id;
+    //     await fetch(`http://localhost:3000/todos/${id}`, {
+    //     method: 'PATCH',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({nombre: nombre.value, apellido: apellido.value, telefono: telefono.value,
+    //         checked: e.target.parentElement.children[1].classList.contains('check-todo') ? false : true}),
+   // });
+
+
+        document.querySelector('#nombre').value = selectedRow.children[0].textContent;
+        document.querySelector('#apellido').value = selectedRow.children[1].textContent;
+        document.querySelector('#telefono').value = selectedRow.children[2].textContent;
+        
+        const campos = {
+            nombre: false,
+            apellido: false,
+            telefono: false  //NO se coloca coma (,) al ultimo elemento del objecto.
+        }
 });
 
 //Cerrar sesion
@@ -98,7 +110,7 @@ const getTodos = async () => {
     userTodos.forEach(todo => {
     const row = document.createElement('li');
     row.innerHTML = `
-    <li id=${todo.id}>
+    <li class="todo-item" id=${todo.id}>
         <td>${todo.nombre}</td>
         <td>${todo.apellido}</td>
         <td>${todo.telefono}</td>
@@ -108,13 +120,6 @@ const getTodos = async () => {
         </td>
     </li>      
     `;
-    // row.innerHTML = `
-    // <li class="todo-item" id="${todo.id}">
-    //     <button class="delete-btn">&#10006;</button>
-    //         <p ${todo.checked ? 'class="check-todo"' : null}>${todo.text}</p>
-    //     <button class="check-btn">&#10003;</button>
-    // </li>
-    // `;
     tbody.append(row);
     });
 }
